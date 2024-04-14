@@ -247,6 +247,16 @@ require('lazy').setup({
   },
 
   {
+    'mg979/vim-visual-multi',
+    branch = 'master',
+    init = function()
+      vim.g.VM_maps = {
+        ['Find Under'] = '<C-d>',
+      }
+    end,
+  },
+
+  {
     'ray-x/go.nvim',
     dependencies = { -- optional packages
       'ray-x/guihua.lua',
