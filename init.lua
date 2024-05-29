@@ -292,8 +292,15 @@ require('lazy').setup({
     branch = 'master',
     init = function()
       vim.g.VM_maps = {
-        ['Find Under'] = '<C-d>',
+        ['Find Under'] = '<C-s>',
       }
+    end,
+  },
+  -- { 'psliwka/vim-smoothie', config = function() end },
+  {
+    'karb94/neoscroll.nvim',
+    config = function()
+      require('neoscroll').setup {}
     end,
   },
 
@@ -1015,6 +1022,7 @@ require('lazy').setup({
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+      vim.cmd.hi 'Normal guibg=NONE ctermbg=NONE'
     end,
   },
 
