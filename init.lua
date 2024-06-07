@@ -279,6 +279,13 @@ require('lazy').setup({
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
 
+  {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require('colorizer').setup()
+    end,
+  },
+
   { 'towolf/vim-helm', ft = 'helm' },
   {
     'github/copilot.vim',
