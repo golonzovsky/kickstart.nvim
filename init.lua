@@ -240,6 +240,13 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
+  {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require('colorizer').setup()
+    end,
+  },
+
   { 'towolf/vim-helm', ft = 'helm' },
   {
     'github/copilot.vim',
