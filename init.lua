@@ -299,7 +299,9 @@ require('lazy').setup({
     branch = 'master',
     init = function()
       vim.g.VM_maps = {
-        ['Find Under'] = '<C-s>',
+        --['Find Under'] = '<C-s>',
+        ['I BS'] = '',
+        --['Add Cursors Down'] = '<C-x>',
       }
     end,
   },
