@@ -199,13 +199,13 @@ vim.keymap.set('n', '<C-w>N', '<esc>:vnew<cr>', { noremap = true })
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+--vim.api.nvim_create_autocmd('TextYankPost', {
+--  desc = 'Highlight when yanking (copying) text',
+--  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+--  callback = function()
+--    vim.highlight.on_yank()
+--  end,
+--})
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -324,6 +324,55 @@ require('lazy').setup({
     event = { 'CmdlineEnter' },
     ft = { 'go', 'gomod' },
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  },
+
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+  },
+  {
+    'gbprod/yanky.nvim',
+    dependencies = {
+      { 'kkharji/sqlite.lua' },
+    },
+    opts = {
+      ring = { storage = 'sqlite' },
+      highlight = {
+        on_put = true,
+        on_yank = true,
+        timer = 100,
+      },
+      preserve_cursor_position = {
+        enabled = true,
+      },
+    },
+    keys = {
+      {
+        '<leader>p',
+        function()
+          require('telescope').extensions.yank_history.yank_history {}
+        end,
+        desc = 'Open Yank History',
+      },
+      { 'y', '<Plug>(YankyYank)', mode = { 'n', 'x' }, desc = 'Yank text' },
+      { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, desc = 'Put yanked text after cursor' },
+      { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, desc = 'Put yanked text before cursor' },
+      { 'gp', '<Plug>(YankyGPutAfter)', mode = { 'n', 'x' }, desc = 'Put yanked text after selection' },
+      { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, desc = 'Put yanked text before selection' },
+      { '<c-p>', '<Plug>(YankyPreviousEntry)', desc = 'Select previous entry through yank history' },
+      { '<c-n>', '<Plug>(YankyNextEntry)', desc = 'Select next entry through yank history' },
+      { ']p', '<Plug>(YankyPutIndentAfterLinewise)', desc = 'Put indented after cursor (linewise)' },
+      { '[p', '<Plug>(YankyPutIndentBeforeLinewise)', desc = 'Put indented before cursor (linewise)' },
+      { ']P', '<Plug>(YankyPutIndentAfterLinewise)', desc = 'Put indented after cursor (linewise)' },
+      { '[P', '<Plug>(YankyPutIndentBeforeLinewise)', desc = 'Put indented before cursor (linewise)' },
+      { '>p', '<Plug>(YankyPutIndentAfterShiftRight)', desc = 'Put and indent right' },
+      { '<p', '<Plug>(YankyPutIndentAfterShiftLeft)', desc = 'Put and indent left' },
+      { '>P', '<Plug>(YankyPutIndentBeforeShiftRight)', desc = 'Put before and indent right' },
+      { '<P', '<Plug>(YankyPutIndentBeforeShiftLeft)', desc = 'Put before and indent left' },
+      { '=p', '<Plug>(YankyPutAfterFilter)', desc = 'Put after applying a filter' },
+      { '=P', '<Plug>(YankyPutBeforeFilter)', desc = 'Put before applying a filter' },
+    },
   },
 
   {
@@ -815,13 +864,13 @@ require('lazy').setup({
         rust_analyzer = {},
         svelte = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
+
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
-        --
+        ts_ls = {},
 
         helm_ls = {
           settings = {
